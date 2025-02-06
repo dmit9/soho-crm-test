@@ -14,9 +14,9 @@ class ZohoService
 
     public function getAccessToken()
     {
-        $client_id = '1000.NES0671I9X07QR9NMC4GB10NZE66OV';
-        $client_secret = 'a439bcd16f2a255da493435752f731cc8865fbd47d';
-        $refresh_token = '1000.a26fa63b831e93014075448e9e827372.7879e3d85ed668ec06b191dbe412f2a1';
+        $client_id = '';
+        $client_secret = '';
+        $refresh_token = '';
         $grant_type = 'refresh_token';
 
         $response = Http::asForm()->post($this->apiUrlToken, [
