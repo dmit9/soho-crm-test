@@ -80,8 +80,7 @@ class ZohoService
 
     public function createAccount($data)
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
+        $accessToken = $this->getValidToken()['access_token'];
 
          Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
@@ -97,9 +96,9 @@ class ZohoService
 
     public function createDeal($data)
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
-        $response = Http::withHeaders([
+        $accessToken = $this->getValidToken()['access_token'];
+        
+        Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
         ])->post("{$this->apiUrl}/Deals", [
             'data' => [[
@@ -111,72 +110,48 @@ class ZohoService
                 'Stage' => $data['stage'],
             ]]
         ]);
-        return $response->json();
     }
 
     public function getAccounts()
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
-        // $owners = null;
+        $accessToken = $this->getValidToken()['access_token'];
 
-        $response = Http::withHeaders([
+        $owners = Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
-        ])->get("{$this->apiUrl}/Accounts");
-
-        $owners = json_decode($response, true);
-        $owners = $owners['data'];
-        //  Log::info('Ответ от Zoho', $owners);
+        ])->get("{$this->apiUrl}/Accounts")->json('data');
+        
         return $owners;
     }
 
     public function getDeals()
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
-        $deals = null;
+        $accessToken = $this->getValidToken()['access_token'];
 
-        $response = Http::withHeaders([
+        $deals = Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
-        ])->get("{$this->apiUrl}/Deals");
-
-        $deals = json_decode($response, true);
-        $deals = $deals['data'];
-        //   Log::info('Ответ от Zoho', $deals);
+        ])->get("{$this->apiUrl}/Deals")->json('data');
 
         return $deals;
     }
 
     public function getContacts()
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
-        $deals = null;
+        $accessToken = $this->getValidToken()['access_token'];
 
-        $response = Http::withHeaders([
+        $contacts = Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
-        ])->get("{$this->apiUrl}/Contacts");
-
-        $contacts = json_decode($response, true);
-        $contacts = $contacts['data'];
-        //   Log::info('Ответ от Zoho', $deals);
+        ])->get("{$this->apiUrl}/Contacts")->json('data');
 
         return $contacts;
     }
 
     public function getCampaigns()
     {
-        $tokenData = $this->getValidToken();
-        $accessToken = $tokenData['access_token'];
-        $deals = null;
+        $accessToken = $this->getValidToken()['access_token'];
 
-        $response = Http::withHeaders([
+        $campaigns = Http::withHeaders([
             'Authorization' => 'Zoho-oauthtoken ' . $accessToken,
-        ])->get("{$this->apiUrl}/Campaigns");
-
-        $campaigns = json_decode($response, true);
-        $campaigns = $campaigns['data'];
-        //   Log::info('Ответ от Zoho', $deals);
+        ])->get("{$this->apiUrl}/Campaigns")->json('data');
 
         return $campaigns;
     }
